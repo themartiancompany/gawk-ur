@@ -1,4 +1,3 @@
-# $Id: PKGBUILD,v 1.8 2007/11/15 23:53:15 daniel Exp $
 # Maintainer: dorphell <dorphell@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 pkgname=gawk
