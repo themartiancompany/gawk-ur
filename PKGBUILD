@@ -1,4 +1,4 @@
-# Maintainer: dorphell <dorphell@archlinux.org>
+# Maintainer:
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=gawk
@@ -31,8 +31,5 @@ package() {
   mv ${pkgdir}/usr/bin/gawk* ${pkgdir}/bin/
   mv ${pkgdir}/usr/bin/awk ${pkgdir}/bin/
   cd ${pkgdir}/usr/bin/
-  ln -sf /bin/gawk gawk 
-  
-  rm ${pkgdir}/usr/share/info/dir
-  gzip -9 ${pkgdir}/usr/share/info/{gawk,gawkinet}.info
+  ln -sf /bin/gawk gawk
 }
