@@ -78,16 +78,36 @@ _http="https://ftp.gnu.org/pub"
 _ns="gnu"
 _url="${_http}/${_ns}/${_pkg}"
 _tarname="${_pkg}-${pkgver}"
+_evmfs_network="100"
+_evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+_evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+_archive_sum='378f8864ec21cfceaa048f7e1869ac9b4597b449087caf1eb55e440d30273336'
+_evmfs_archive_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sum}"
+_evmfs_archive_src="${_tarname}.tar.gz::${_evmfs_archive_uri}"
+_archive_sig_sum="fe9ed5d91f9ef689e9fc2eb21ce3c69718e938562d55447c024ae0c4be9c1f75"
+_archive_sig_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sig_sum}"
+_archive_sig_src="${_tarname}.tar.gz.sig::${_archive_sig_uri}"
+if [[ "${_evmfs}" == "true" ]]; then
+  makedepends+=(
+    "evmfs"
+  )
+  _src="${_evmfs_archive_src}"
+  _src_sig="${_archive_sig_src}"
+elif [[ "${_evmfs}" == "false" ]]; then
+  _src="${_tarname}.tar.gz::${_url}/${_tarname}.tar.gz"
+  _sig_src="${_tarname}.tar.gz.sig::${_url}/${_tarname}.tar.gz.sig"
+fi
 source=(
-  "${_url}/${_tarname}.tar.gz"{"",".sig"}
+  "${_src}"
+  "${_sig_src}"
+)
+sha256sums=(
+  "${_archive_sum}"
+  "${_archive_sig_sum}"
 )
 validpgpkeys=(
    # Arnold Robbins
   'D1967C63788713177D861ED7DF597815937EC0D2'
-)
-sha256sums=(
-  '378f8864ec21cfceaa048f7e1869ac9b4597b449087caf1eb55e440d30273336'
-  'SKIP'
 )
 
 build() {
