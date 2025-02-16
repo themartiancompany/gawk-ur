@@ -36,7 +36,12 @@ _evmfs_available="$( \
     true)"
 if [[ ! -v "_evmfs" ]]; then
   if [[ "${_evmfs_available}" != "" ]]; then
-    _evmfs="true"
+    # TODO: This is not uploaded on gnosis as
+    # its too expensive, this is going
+    # to be uploaded on holesky for
+    # now after ive finished building everything
+    # _evmfs="true"
+    _evmfs="false"
   elif [[ "${_evmfs_available}" == "" ]]; then
     _evmfs="false"
   fi
