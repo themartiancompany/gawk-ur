@@ -36,12 +36,15 @@ _evmfs_available="$( \
     true)"
 if [[ ! -v "_evmfs" ]]; then
   if [[ "${_evmfs_available}" != "" ]]; then
-    # TODO: This is not uploaded on gnosis as
-    # its too expensive, this is going
-    # to be uploaded on holesky for
-    # now after ive finished building everything
-    # _evmfs="true"
-    _evmfs="false"
+    # The sources for this package have not
+    # been uploaded on gnosis as
+    # its too expensive for me currently but
+    # on holesky.
+    # For this package to be made entirely
+    # undeletable the evmfs crowd-sourced
+    # publishing contract will have to 
+    # completed.
+    _evmfs="true"
   elif [[ "${_evmfs_available}" == "" ]]; then
     _evmfs="false"
   fi
@@ -55,9 +58,10 @@ elif [[ "${_os}" == "Android" ]]; then
   _mpfr='libmpfr'
   _shell='bash'
 fi
+_proj="gnu"
 _pkg=gawk
 pkgname="${_pkg}"
-pkgver=5.3.0
+pkgver=5.3.1
 pkgrel=1
 pkgdesc="GNU version of awk"
 arch=(
@@ -67,7 +71,7 @@ arch=(
   'i686'
   'x86_64'
 )
-url="https://www.gnu.org/software/gawk/"
+url="https://www.${_proj}.org/software/${_pkg}"
 license=(
   'GPL'
 )
@@ -79,18 +83,20 @@ depends=(
 provides=(
   'awk'
 )
-_http="https://ftp.gnu.org/pub"
-_ns="gnu"
+_http="https://ftp.${_proj}.org/pub"
+_ns="${_proj}"
 _url="${_http}/${_ns}/${_pkg}"
 _tarname="${_pkg}-${pkgver}"
-_evmfs_network="100"
-_evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+_sig_net="100"
+_sig_fs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
+_archive_net="17000"
+_archive_fs_address="0x151920938488F193735e83e052368cD41F9d9362"
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
-_archive_sum='378f8864ec21cfceaa048f7e1869ac9b4597b449087caf1eb55e440d30273336'
-_evmfs_archive_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sum}"
+_archive_sum='fa41b3a85413af87fb5e3a7d9c8fa8d4a20728c67651185bb49c38a7f9382b1e'
+_evmfs_archive_uri="evmfs://${_archive_net}/${_archive_fs_address}/${_evmfs_ns}/${_archive_sum}"
 _evmfs_archive_src="${_tarname}.tar.gz::${_evmfs_archive_uri}"
-_archive_sig_sum="da1cd0dff94c07476c58bd0d9d8ae8c07b84e38751dd268625f9a7a4e5ffbc32"
-_archive_sig_uri="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}/${_archive_sig_sum}"
+_archive_sig_sum="914e311fea0443b8cc3e18b8670deea2b135bb138b85f404a65aba1ee130b9ca"
+_archive_sig_uri="evmfs://${_sig_net}/${_sig_fs_address}/${_evmfs_ns}/${_archive_sig_sum}"
 _archive_sig_src="${_tarname}.tar.gz.sig::${_archive_sig_uri}"
 if [[ "${_evmfs}" == "true" ]]; then
   makedepends+=(
